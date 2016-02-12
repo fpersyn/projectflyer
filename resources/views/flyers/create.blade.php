@@ -5,7 +5,7 @@
 
     <hr>
 
-    <form method="post" action="/flyers">
+    <form method="post" action="/flyers" enctype="multipart/form-data">
         <!-- Street Form Input -->
         <div class="form-group">
             <label for="street">Street:</label>
@@ -52,6 +52,12 @@
             <textarea type="text" name="description" id="description" class="form-control" rows="10">
                 {{ old('description') }}
             </textarea>
+        </div>
+
+        <!-- Photos Form Input -->
+        <div class="form-group">
+            <label for="photos">Photos:</label>
+            <input type="file" name="photos" id="photos" class="form-control" value="{{ old('photos') }}">
         </div>
 
         <!-- Form Submit -->
