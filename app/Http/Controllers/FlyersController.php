@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Flyer;
 
 class FlyersController extends Controller
 {
@@ -37,8 +38,11 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-        // persist the flyer into table
-        // redirect to landing page
+        Flyer::create($request->all());
+
+        // flash messaging
+
+        return redirect()->back(); //temporary
     }
 
     /**

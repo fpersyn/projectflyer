@@ -33,8 +33,7 @@
 <!-- State Form Input -->
 <div class="form-group">
     <label for="state">State:</label>
-    <select id="state" name="state" class="form-control" required>
-    </select>
+    <input type="text" name="state" id="state" class="form-control" value="{{ old('state') }}" required>
 </div>
 
 <hr>
@@ -51,12 +50,6 @@
             <textarea type="text" name="description" id="description" class="form-control" rows="10" required>
                 {{ old('description') }}
             </textarea>
-</div>
-
-<!-- Photos Form Input -->
-<div class="form-group">
-    <label for="photos">Photos:</label>
-    <input type="file" name="photos" id="photos" class="form-control" value="{{ old('photos') }}">
 </div>
 
 <!-- Form Submit -->
