@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FlyerRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -34,9 +35,10 @@ class FlyersController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(FlyerRequest $request)
     {
-        //
+        // persist the flyer into table
+        // redirect to landing page
     }
 
     /**

@@ -7,7 +7,17 @@
 
     <div class="row">
         <form method="post" action="/flyers" enctype="multipart/form-data" class="col-md-6">
-           @include('flyers.form')
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @include('flyers.form')
         </form>
     </div>
 @stop
