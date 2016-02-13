@@ -1,3 +1,5 @@
+@inject('countries', 'App\Http\Utilities\Country')
+
 @extends('layout')
 
 @section('content')
@@ -28,6 +30,9 @@
         <div class="form-group">
             <label for="country">Country:</label>
             <select id="country" name="country" class="form-control">
+                @foreach($countries::all() as $country => $code)
+                    <option value="{{ $code }}">{{ $country }}</option>
+                @endforeach
             </select>
         </div>
 
