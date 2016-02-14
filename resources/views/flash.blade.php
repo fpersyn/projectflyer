@@ -3,7 +3,7 @@
         swal({
             title: "{{ session('flash_message.title') }}",
             text: "{{ session('flash_message.message') }}",
-            type: "info",
+            type: "{{ session('flash_message.level') }}",
             timer: 1700,
             showConfirmButton: false
         });
