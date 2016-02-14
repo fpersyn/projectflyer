@@ -8,5 +8,5 @@ function flash($title = null, $message = null)
         return $flash;
     }
 
-    return $flash->message($title, $message);
+    return $flash->info($title, $message);
 }
