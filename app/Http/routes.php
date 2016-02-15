@@ -27,7 +27,6 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    // projectflyer.com/1428-elm-street
-    // projectflyer.com/flyers/1/edit
+    Route::get('{zip}/{street}', 'FlyersController@show');
     Route::resource('flyers', 'FlyersController');
 });
