@@ -22,11 +22,18 @@
 
     <h2>Add Your Photos</h2>
 
-    <form action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone">
+    <form id="addPhotosForm" action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone">
         {{ csrf_field() }}
     </form>
 @stop
 
 @section('scripts.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
+    <script>
+        Dropzone.options.addPhotosForm = {
+            paramName: 'photo',
+            maxFilesize: 3,
+            acceptedFiles: '.jpg, .jpeg, .png'
+        };
+    </script>
 @stop
