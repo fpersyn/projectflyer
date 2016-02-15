@@ -7,4 +7,12 @@
     <hr>
 
     <div class="description">{!! $flyer->description !!}</div>
+
+    <form action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone">
+        {{ csrf_field() }}
+    </form>
+@stop
+
+@section('scripts.footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
 @stop

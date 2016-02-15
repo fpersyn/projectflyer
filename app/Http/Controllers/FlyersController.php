@@ -57,6 +57,14 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
+    public function addPhoto(Request $request)
+    {
+        dd($request->file('file'));
+
+        // move file to directory + prevent possibility of overriding existing files
+        // store file path in the database & match it with the correct flyer
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
