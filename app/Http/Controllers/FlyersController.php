@@ -59,9 +59,13 @@ class FlyersController extends Controller
 
     public function addPhoto(Request $request)
     {
-        dd($request->file('file'));
+        $file = $request->file('file');
 
-        // move file to directory + prevent possibility of overriding existing files
+        $name = time() . $file->getClientOriginalName();
+        $file->move('flyers/photos', $name);
+
+        return 'Done';
+
         // store file path in the database & match it with the correct flyer
     }
 
