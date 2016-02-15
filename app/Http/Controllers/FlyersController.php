@@ -52,7 +52,7 @@ class FlyersController extends Controller
      */
     public function show($zip, $street)
     {
-        $flyer = Flyer::locatedAt($zip, $street)->first();
+        $flyer = Flyer::locatedAt($zip, $street);
 
         return view('flyers.show', compact('flyer'));
     }
@@ -68,7 +68,7 @@ class FlyersController extends Controller
         $name = time() . $file->getClientOriginalName();
         $file->move('flyers/photos', $name);
 
-        $flyer = Flyer::locatedAt($zip, $street)->first();
+        $flyer = Flyer::locatedAt($zip, $street);
 
         $flyer->photos()->create(['path'  => "/flyers/photos/{$name}"]);
     }
