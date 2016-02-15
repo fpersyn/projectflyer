@@ -1,12 +1,26 @@
 @extends('layout')
 
 @section('content')
-    <h1>{{ $flyer->street }}</h1>
-    <h2>{{ $flyer->price }}</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <h1>{{ $flyer->street }}</h1>
+            <h2>{{ $flyer->price }}</h2>
+
+            <hr>
+
+            <div class="description">{!! $flyer->description !!}</div>
+        </div>
+
+        <div class="col-md-9">
+            @foreach ($flyer->photos as $photo)
+                <img src="{{ $photo->path }}" alt="">
+            @endforeach
+        </div>
+    </div>
 
     <hr>
 
-    <div class="description">{!! $flyer->description !!}</div>
+    <h2>Add Your Photos</h2>
 
     <form action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone">
         {{ csrf_field() }}

@@ -57,16 +57,16 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
-    public function addPhoto(Request $request)
+    public function addPhoto($zip, $street, Request $request)
     {
         $file = $request->file('file');
 
         $name = time() . $file->getClientOriginalName();
         $file->move('flyers/photos', $name);
 
-        return 'Done';
+        $flyer = Flyer::locatedAt($zip, $street)->first();
 
-        // store file path in the database & match it with the correct flyer
+        $flyer->photos()->create(['path'  => "/flyers/photos/{$name}"]);
     }
 
     /**
