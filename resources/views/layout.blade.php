@@ -17,20 +17,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">ProjectFlyer</a>
+                <a class="navbar-brand" href="/">ProjectFlyer</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li class="active"><a href="/">Home</a></li>
                 </ul>
-
-                @if ($signedIn)
-                    <p class="navbar-text navbar-right">
-                        {{ $user->name }}
-                    </p>
-                @endif
+                <ul class="nav navbar-nav navbar-right">
+                    @if ($signedIn)
+                        <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                    {{ $user->name }} <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/logout">Logout</a></li>
+                                </ul>
+                        </li>
+                    @else
+                        <li>
+                            <p class="navbar-btn">
+                               <a href="/login" class="btn btn-success">Login</a>
+                            </p>
+                        </li>
+                    @endif
+                </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
@@ -40,6 +50,8 @@
     </div>
 
     <script src="/js/libs.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     @yield('scripts.footer')
 
     @include('flash')
