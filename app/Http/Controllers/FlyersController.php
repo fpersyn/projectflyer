@@ -12,6 +12,12 @@ use App\Photo;
 
 class FlyersController extends Controller
 {
+    public function __construct()
+    {
+        // block access to all methods unless logged in
+    	$this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
