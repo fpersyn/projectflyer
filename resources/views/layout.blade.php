@@ -25,6 +25,12 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+
+                @if (Auth::check())
+                    <p class="navbar-text navbar-right">
+                        {{ Auth::user()->name }}
+                    </p>
+                @endif
             </div><!--/.nav-collapse -->
         </div>
     </nav>
