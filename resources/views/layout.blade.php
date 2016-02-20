@@ -26,9 +26,9 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
 
-                @if (Auth::check())
+                @if ($signedIn)
                     <p class="navbar-text navbar-right">
-                        {{ Auth::user()->name }}
+                        {{ $user->name }}
                     </p>
                 @endif
             </div><!--/.nav-collapse -->

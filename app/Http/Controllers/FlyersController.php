@@ -17,6 +17,8 @@ class FlyersController extends Controller
     {
         // block access to all methods unless logged in
     	$this->middleware('auth', ['except' => ['show']]);
+
+        parent::__construct();
     }
 
     /**
