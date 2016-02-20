@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Flyer extends Model
 {
     /**
-     * Fillable fields for a flyer.
+     * Fillable fields for a Flyer.
      *
      * @var array
      */
@@ -22,7 +22,7 @@ class Flyer extends Model
     ];
 
     /**
-     * Find the flyer at the given address.
+     * Find the Flyer at the given address.
      *
      * @param string $zip
      * @param string $street
@@ -35,11 +35,23 @@ class Flyer extends Model
         return static::where(compact('zip', 'street'))->first();
     }
 
+    /**
+     * Formats the price input for the view.
+     *
+     * @param $price
+     * @return string
+     */
     public function getPriceAttribute($price)
     {
         return '£' . number_format($price);
     }
 
+    /**
+     * Add a Photo to the Flyer.
+     *
+     * @param Photo $photo
+     * @return Model
+     */
     public function addPhoto(Photo $photo)
     {
         return $this->photos()->save($photo);

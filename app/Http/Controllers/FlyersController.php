@@ -9,13 +9,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Flyer;
 use App\Photo;
+use Illuminate\Http\UploadedFile;
 
 class FlyersController extends Controller
 {
     public function __construct()
     {
         // block access to all methods unless logged in
-    	$this->middleware('auth');
+    	$this->middleware('auth', ['except' => ['show']]);
     }
 
     /**
@@ -77,11 +78,24 @@ class FlyersController extends Controller
             'photo' =>  'required|mimes:jpg,jpeg,png'
         ]);
 
-        $photo = Photo::fromForm($request->file('photo'));
+        $photo = $this->makePhoto($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
     }
 
+
+    /**
+     * Create a new Photo instance and move it.
+     *
+     * @param UploadedFile $file
+     * @return mixed
+     */
+    public function makePhoto(UploadedFile $file)
+    {
+        return Photo::named($file->getClientOriginalName())
+            ->move($file);
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
