@@ -82,9 +82,21 @@ class FlyersController extends Controller
             'photo' =>  'required|mimes:jpg,jpeg,png'
         ]);
 
+        $flyer = Flyer::locatedAt($zip, $street);
+
+        if ($flyer->user_id !== \Auth::id()) {
+            if ($request->ajax()) {
+                return response(['message' => 'Not authorized.'], 403);
+            }
+
+            flash('Not authorized.');
+
+            return redirect('/');
+        }
+
         $photo = $this->makePhoto($request->file('photo'));
 
-        Flyer::locatedAt($zip, $street)->addPhoto($photo);
+        $flyer->addPhoto($photo);
     }
 
 
