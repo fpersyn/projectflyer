@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\FlyerRequest;
 use App\Http\Requests\AddPhotoRequest;
-use Illuminate\Http\UploadedFile;
 
 class FlyersController extends Controller
 {
@@ -77,21 +76,9 @@ class FlyersController extends Controller
      */
     public function addPhoto($zip, $street, AddPhotoRequest $request)
     {
-        $photo = $this->makePhoto($request->file('photo'));
+        $photo = Photo::fromFile($request->file('photo')->upload();
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
-    }
-
-    /**
-     * Create a new Photo instance and move it.
-     *
-     * @param UploadedFile $file
-     * @return mixed
-     */
-    public function makePhoto(UploadedFile $file)
-    {
-        return Photo::named($file->getClientOriginalName())
-            ->move($file);
     }
     
     /**
