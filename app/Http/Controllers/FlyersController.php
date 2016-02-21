@@ -84,14 +84,8 @@ class FlyersController extends Controller
 
         $flyer = Flyer::locatedAt($zip, $street);
 
-        if ($flyer->user_id !== \Auth::id()) {
-            if ($request->ajax()) {
-                return response(['message' => 'Not authorized.'], 403);
-            }
-
-            flash('Not authorized.');
-
-            return redirect('/');
+        if (! $flyer->ownedBy($this->user)) {
+            return $this->unauthorized($request);
         }
 
         $photo = $this->makePhoto($request->file('photo'));
@@ -99,6 +93,22 @@ class FlyersController extends Controller
         $flyer->addPhoto($photo);
     }
 
+    /**
+     * Return unauthorized request response.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Symfony\Component\HttpFoundation\Response
+     */
+    private function unauthorized(Request $request)
+    {
+        if ($request->ajax()) {
+            return response(['message' => 'Not authorized.'], 403);
+        }
+
+        flash('Not authorized.');
+
+        return redirect('/');
+    }
 
     /**
      * Create a new Photo instance and move it.
