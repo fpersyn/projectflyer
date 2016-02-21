@@ -39,6 +39,13 @@ class Photo extends Model
      */
     protected $time;
 
+    protected static function boot()
+    {
+        static::creating(function ($photo) {
+           return $photo->upload();
+        });
+    }
+
     /**
      * A photo belongs to a flyer
      *
