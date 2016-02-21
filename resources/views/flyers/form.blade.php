@@ -50,9 +50,7 @@
         <!-- Description Form Input -->
         <div class="form-group">
             <label for="description">Home Description:</label>
-                    <textarea type="text" name="description" id="description" class="form-control" rows="10" required>
-                        {{ old('description') }}
-                    </textarea>
+                    <textarea type="text" name="description" id="description" class="form-control" rows="10" required></textarea>
         </div>
 
     </div>
