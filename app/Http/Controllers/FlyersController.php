@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FlyerRequest;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Flyer;
 use App\Photo;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Requests\FlyerRequest;
+use App\Http\Requests\AddPhotoRequest;
 use Illuminate\Http\UploadedFile;
 
 class FlyersController extends Controller
@@ -74,53 +73,13 @@ class FlyersController extends Controller
      *
      * @param $zip
      * @param $street
-     * @param Request $request
+     * @param AddPhotoRequest $request
      */
-    public function addPhoto($zip, $street, Request $request)
+    public function addPhoto($zip, $street, AddPhotoRequest $request)
     {
-        $this->validate($request, [
-            'photo' =>  'required|mimes:jpg,jpeg,png'
-        ]);
-
-        if (! $this->userCreatedFlyer($request)) {
-            return $this->unauthorized($request);
-        }
-
         $photo = $this->makePhoto($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
-    }
-
-    /**
-     * Check if the current User is the creator of the Flyer.
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    private function userCreatedFlyer(Request $request)
-    {
-        return Flyer::where([
-            'zip' => $request->zip,
-            'street' => $request->street,
-            'user_id' => $this->user->id
-        ])->exists();
-    }
-
-    /**
-     * Return unauthorized request response.
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Symfony\Component\HttpFoundation\Response
-     */
-    private function unauthorized(Request $request)
-    {
-        if ($request->ajax()) {
-            return response(['message' => 'Not authorized.'], 403);
-        }
-
-        flash('Not authorized.');
-
-        return redirect('/');
     }
 
     /**
