@@ -82,15 +82,28 @@ class FlyersController extends Controller
             'photo' =>  'required|mimes:jpg,jpeg,png'
         ]);
 
-        $flyer = Flyer::locatedAt($zip, $street);
-
-        if (! $flyer->ownedBy($this->user)) {
+        if (! $this->userCreatedFlyer($request)) {
             return $this->unauthorized($request);
         }
 
         $photo = $this->makePhoto($request->file('photo'));
 
-        $flyer->addPhoto($photo);
+        Flyer::locatedAt($zip, $street)->addPhoto($photo);
+    }
+
+    /**
+     * Check if the current User is the creator of the Flyer.
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    private function userCreatedFlyer(Request $request)
+    {
+        return Flyer::where([
+            'zip' => $request->zip,
+            'street' => $request->street,
+            'user_id' => $this->user->id
+        ])->exists();
     }
 
     /**
