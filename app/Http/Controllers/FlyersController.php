@@ -70,13 +70,13 @@ class FlyersController extends Controller
     /**
      * Apply a photo to the referenced flyer.
      *
-     * @param $zip
-     * @param $street
+     * @param string $zip
+     * @param string $street
      * @param AddPhotoRequest $request
      */
     public function addPhoto($zip, $street, AddPhotoRequest $request)
     {
-        $photo = Photo::fromFile($request->file('photo')->upload();
+        $photo = Photo::fromFile($request->file('photo'))->upload();
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
     }

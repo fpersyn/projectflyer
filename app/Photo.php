@@ -26,11 +26,18 @@ class Photo extends Model
     protected $table = 'flyer_photos';
 
     /**
-     * Placeholder for an uploaded file.
+     * The uploaded file instance.
      *
      * @var object
      */
     protected $file;
+
+    /**
+     * Stores the current time.
+     *
+     * @var string
+     */
+    protected $time;
 
     /**
      * A photo belongs to a flyer
@@ -68,11 +75,11 @@ class Photo extends Model
      */
     public function fileName()
     {
-        $name = time() . $this->file->getClientOriginalName();
+        if (! isset($this->time)) { $this->time = time(); } // temp
 
-        $extension = $this->file->getClientOriginalExtension();
+        $name = $this->time . '-' . $this->file->getClientOriginalName();
 
-        return "{$name}.{$extension}";
+        return $name;
     }
 
     /**
