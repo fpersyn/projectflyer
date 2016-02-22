@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Flyer;
-use App\Http\Requests;
-use App\Http\Requests\FlyerRequest;
-use App\Http\Controllers\Controller;
+use App\Photo;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AddPhotoRequest;
 
-class FlyersController extends Controller
+class FlyerPhotosController extends Controller
 {
-    public function __construct()
-    {
-        // block access to all methods unless logged in
-    	$this->middleware('auth', ['except' => ['show']]);
-
-        parent::__construct();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -35,26 +28,21 @@ class FlyersController extends Controller
      */
     public function create()
     {
-        return view('flyers.create');
+        //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Apply a newly created Flyer Photo to the referenced Flyer.
      *
-     * @return Response
+     * @param string $zip
+     * @param string $street
+     * @param AddPhotoRequest $request
      */
-    public function store(FlyerRequest $request)
+    public function store($zip, $street, AddPhotoRequest $request)
     {
-        $zip = strtolower($request->zip);
-        $street = strtolower(str_replace(' ', '-', $request->street));
+        $photo = Photo::fromFile($request->file('photo'));
 
-        $this->user->publish(
-            new Flyer($request->all())
-        );
-
-        flash()->success('Success!', 'Your flyer has been created.');
-
-        return redirect()->route('show_flyer', ['zip' => $zip, 'street' => $street]);
+        Flyer::locatedAt($zip, $street)->addPhoto($photo);
     }
 
     /**
@@ -62,13 +50,11 @@ class FlyersController extends Controller
      *
      * @return Response
      */
-    public function show($zip, $street)
+    public function show($id)
     {
-        $flyer = Flyer::locatedAt($zip, $street);
-
-        return view('flyers.show', compact('flyer'));
+        //
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
