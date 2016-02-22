@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Flyer;
-use App\Photo;
-use Illuminate\Http\Request;
-use App\Http\Requests;
+use App\Flyers\AddPhotoToFlyer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddPhotoRequest;
 
@@ -32,7 +30,7 @@ class FlyerPhotosController extends Controller
     }
 
     /**
-     * Apply a newly created Flyer Photo to the referenced Flyer.
+     * Apply a Photo to the referenced Flyer.
      *
      * @param string $zip
      * @param string $street
@@ -40,9 +38,10 @@ class FlyerPhotosController extends Controller
      */
     public function store($zip, $street, AddPhotoRequest $request)
     {
-        $photo = Photo::fromFile($request->file('photo'));
+        $flyer = Flyer::locatedAt($zip, $street);
+        $photo = $request->file('photo');
 
-        Flyer::locatedAt($zip, $street)->addPhoto($photo);
+        (new AddPhotoToFlyer($flyer, $photo))->save();
     }
 
     /**
