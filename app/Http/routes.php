@@ -29,6 +29,6 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::resource('flyers', 'FlyersController');
-    Route::get('{zip}/{street}', 'FlyersController@show');
+    Route::get('{zip}/{street}', ['as' => 'show_flyer', 'uses' => 'FlyersController@show']);
     Route::post('{zip}/{street}/photos', ['as' => 'store_photo_path', 'uses' => 'FlyersController@addPhoto']);
  });

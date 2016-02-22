@@ -46,13 +46,16 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
+        $zip = strtolower($request->zip);
+        $street = strtolower(str_replace(' ', '-', $request->street));
+
         $this->user->publish(
             new Flyer($request->all())
         );
 
         flash()->success('Success!', 'Your flyer has been created.');
 
-        return redirect()->back(); //temporary
+        return redirect()->route('show_flyer', ['zip' => $zip, 'street' => $street]);
     }
 
     /**
