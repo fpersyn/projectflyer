@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/libs.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.2/lity.min.css">
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -52,6 +53,7 @@
     <script src="/js/libs.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.2/lity.min.js"></script>
     @yield('scripts.footer')
 
     @include('flash')
