@@ -31,4 +31,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('flyers', 'FlyersController');
     Route::get('{zip}/{street}', ['as' => 'show_flyer', 'uses' => 'FlyersController@show']);
     Route::post('{zip}/{street}/photos', ['as' => 'store_photo_path', 'uses' => 'FlyerPhotosController@store']);
+
+    Route::delete('photos/{id}', 'FlyerPhotosController@destroy');
  });

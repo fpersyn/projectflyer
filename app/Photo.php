@@ -33,6 +33,16 @@ class Photo extends Model
     }
 
     /**
+     * Return hard-coded base directory.
+     *
+     * @return string
+     */
+    public function baseDir()
+    {
+        return 'img/flyers';
+    }
+
+    /**
      * Mutator
      * Set the filename and update the path and thumbnail path.
      *
@@ -46,13 +56,13 @@ class Photo extends Model
         $this->thumbnail_path = $this->baseDir() . '/tn-' . $name;
     }
 
-    /**
-     * Return hard-coded base directory.
-     *
-     * @return string
-     */
-    public function baseDir()
+    public function delete()
     {
-        return 'img/flyers';
+        \File::delete([
+            $this->path,
+            $this->thumbnail_path
+        ]);
+
+        parent::delete();
     }
 }
